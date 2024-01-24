@@ -25,7 +25,8 @@
 
             // visualizzo la password
             $generated_password = generate_password($password_length);
-            echo "<p>La tua Password: $generated_password</p>";
+            
+            header("Location: generatedpws.php");
         }
     ?>
 </body>
