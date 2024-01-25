@@ -2,18 +2,33 @@
     session_start();
 
     function generate_password($length) {
-        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
-        $password = '';
-
-        if ($length < 5 || $length > 22) {
-            $_SESSION['password_message'] = 'La password deve contenere tra i 5 e i 22 caratteri.';
-            return;
+        $characters = '';
+        for ($i=ord('a'); $i<=ord('z'); $i++){
+            $characters .= chr($i);
+        }
+        for ($i=ord('A'); $i<=ord('Z'); $i++){
+            $characters .= chr($i);
+        }
+        for ($i=ord('0'); $i<=ord('9'); $i++){
+            $characters .= chr($i);
+        }
+        for ($i=ord('!'); $i<=ord('/'); $i++){
+            $characters .= chr($i);
         }
 
-        for ($i = 0; $i < $length; $i++) {
-            $password .= $alphabet[rand(0, strlen($alphabet) - 1)];
+        $password = '';
+        for ($i=0; $i<$length; $i++){
+            $randomCharacterIndex = rand(0, strlen($characters)-1);
+            $randomCharacter = $characters[$randomCharacterIndex];
+
+            $password .= $randomCharacter;
         }
 
         $_SESSION['generated_password'] = $password;
+        
+        return $password;
+
+      
+        
     }
 ?>

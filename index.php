@@ -7,27 +7,30 @@
 
     <?php
         require_once __DIR__ . '/functions.php';
+
+        session_start();
     ?>
 </head>
 <body>
     <h1>Generatore di Password</h1>
 
     <form>
-        <label for="password-length">Lunghezza Password:</label>
-        <input type="number" name="password_length" min="0" max="100" required>
-        <button type="submit">Genera Password</button>
+        <label for="password_length">Lunghezza Password:</label>
+        <input type="number" name="password_length" required>
+        <input type="submit" value="Genera Password">
     </form>
 
     <?php
-        if (isset($_GET['password_length'])) {
     
-            $password_length = $_GET['password_length'];
+        $length = $_GET['password_length'] ?? -1;
 
-            // visualizzo la password
-            $generated_password = generate_password($password_length);
-            
-            header("Location: generatedpws.php");
+        if($length > 0){
+
+            $generated_password = generate_password($length);
+            header("Location: ./generatedpws.php?password=$generated_password");
+
         }
+       
     ?>
 </body>
 </html>
